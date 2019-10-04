@@ -8,16 +8,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ListenerToStaff implements Listener {
-    String staffMessage = "Null";
-
+    
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
-        Player player = e.getPlayer();
-        String chat = e.getMessage();
-        if (e.getMessage().toLowerCase().contains("staff")) {
-            staffMessage = e.getMessage().toLowerCase().replace("staff",
+    public void onChat(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
+        String message = event.getMessage();
+        if (message.toLowerCase().contains("staff")) {
+            String staffMessage = message.toLowerCase().replace("staff",
                     ChatColor.GREEN + "staff" + ChatColor.RESET);
-            e.setCancelled(true);
+            
+            event.setCancelled(true);
             Bukkit.broadcast("<" + player.getName() + "> " + staffMessage, "ChatManager.staff");
             Bukkit.broadcast("<" + player.getName() + "> " + chat, "ChatManager.default");
         }
